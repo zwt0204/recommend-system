@@ -12,11 +12,10 @@ from operator import itemgetter
 
 
 class ItemBasedCF(object):
-    # 初始化参数
+
     def __init__(self):
-        # 找到相似的20部电影，为目标用户推荐10部电影
-        self.n_sim_movie = 20
-        self.n_rec_movie = 10
+        self.n_sim_movie = 20  # 相似的20部电影
+        self.n_rec_movie = 10  # 推荐10部电影
 
         # 将数据集划分为训练集和测试集
         self.trainSet = {}
@@ -27,16 +26,13 @@ class ItemBasedCF(object):
         self.movie_popular = {}
         self.movie_count = 0
 
-        print('Similar movie number = %d' % self.n_sim_movie)
-        print('Recommneded movie number = %d' % self.n_rec_movie)
-
     # 读文件得到“用户-电影”数据
     def get_dataset(self, filename, pivot=0.75):
         trainSet_len = 0
         testSet_len = 0
         for line in self.load_file(filename):
             user, movie, rating, timestamp = line.split(',')
-            if (random.random() < pivot):
+            if random.random() < pivot:
                 self.trainSet.setdefault(user, {})
                 self.trainSet[user][movie] = rating
                 trainSet_len += 1
@@ -49,7 +45,8 @@ class ItemBasedCF(object):
         print('TestSet = %s' % testSet_len)
 
     # 读文件，返回文件的每一行
-    def load_file(self, filename):
+    @staticmethod
+    def load_file(filename):
         with open(filename, 'r') as f:
             for i, line in enumerate(f):
                 if i == 0:  # 去掉文件第一行的title

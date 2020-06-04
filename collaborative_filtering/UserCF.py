@@ -12,7 +12,7 @@ from operator import itemgetter
 
 
 class UserBasedCF(object):
-    # 初始化相关参数
+
     def __init__(self):
         self.n_sim_user = 20  # 与目标用户兴趣相似的20个用户
         self.n_rec_movie = 10   # 推荐10部电影
@@ -49,7 +49,8 @@ class UserBasedCF(object):
         print('TrainSet = %s' % train_set_len)
         print('TestSet = %s' % test_set_len)
 
-    def load_file(self, filename):
+    @staticmethod
+    def load_file(filename):
         """
         读文件，返回文件的每一行
         :param filename:
