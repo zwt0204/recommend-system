@@ -28,21 +28,21 @@ class ItemBasedCF(object):
 
     # 读文件得到“用户-电影”数据
     def get_dataset(self, filename, pivot=0.75):
-        trainSet_len = 0
-        testSet_len = 0
+        train_set_len = 0
+        test_set_len = 0
         for line in self.load_file(filename):
             user, movie, rating, timestamp = line.split(',')
             if random.random() < pivot:
                 self.trainSet.setdefault(user, {})
                 self.trainSet[user][movie] = rating
-                trainSet_len += 1
+                train_set_len += 1
             else:
                 self.testSet.setdefault(user, {})
                 self.testSet[user][movie] = rating
-                testSet_len += 1
+                test_set_len += 1
         print('Split trainingSet and testSet success!')
-        print('TrainSet = %s' % trainSet_len)
-        print('TestSet = %s' % testSet_len)
+        print('TrainSet = %s' % train_set_len)
+        print('TestSet = %s' % test_set_len)
 
     # 读文件，返回文件的每一行
     @staticmethod
